@@ -82,32 +82,44 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 });
 
 /// Function to categorize and store transactions into the database
+// Function to categorize and store transactions into the database
 const categorizeAndStoreTransactions = (transactions) => {
-    transactions.forEach((transaction) => {
-        // Convert Amount to number
-        const amount = parseFloat(transaction.Amount);
-        let category = 'Miscellaneous';
-
-        // Check if 'Description' field exists and categorize accordingly
-        if (transaction.Description && transaction.Description.toLowerCase().includes('salary')) {
-            category = 'Income';
-        } else if (transaction.Description && transaction.Description.toLowerCase().includes('loan')) {
-            category = 'EMI';
-        } else if (amount < 0) {
-            category = 'Expense';
+    // Clear the transactions table before inserting new data
+    db.run('DELETE FROM transactions', (err) => {
+        if (err) {
+            console.error('Error clearing transactions table:', err);
+            return;
         }
+        console.log('Transactions table cleared.');
 
-        // Insert into the database
-        db.run(
-            `INSERT INTO transactions (date, amount, description, category) VALUES (?, ?, ?, ?)`,
-            [transaction.Date, amount, transaction.Description, category],
-            (err) => {
-                if (err) {
-                    console.error('Error inserting transaction into database', err);
-                } else {
-                    console.log('Transaction inserted successfully:', transaction.Date, amount, transaction.Description, category);
-                }
+        // Proceed with inserting new transactions
+        transactions.forEach((transaction) => {
+            // Convert Amount to number
+            const amount = parseFloat(transaction.Amount);
+            let category = 'Miscellaneous';
+
+            // Check if 'Description' field exists and categorize accordingly
+            if (transaction.Description && transaction.Description.toLowerCase().includes('salary')) {
+                category = 'Income';
+            } else if (transaction.Description && transaction.Description.toLowerCase().includes('loan')) {
+                category = 'EMI';
+            } else if (amount < 0) {
+                category = 'Expense';
             }
-        );
+
+            // Insert into the database
+            db.run(
+                `INSERT INTO transactions (date, amount, description, category) VALUES (?, ?, ?, ?)`,
+                [transaction.Date, amount, transaction.Description, category],
+                (err) => {
+                    if (err) {
+                        console.error('Error inserting transaction into database', err);
+                    } else {
+                        console.log('Transaction inserted successfully:', transaction.Date, amount, transaction.Description, category);
+                    }
+                }
+            );
+        });
     });
 };
+
