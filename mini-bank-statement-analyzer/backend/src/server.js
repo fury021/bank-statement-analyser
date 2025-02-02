@@ -81,33 +81,89 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
     }
 });
 
-/// Function to categorize and store transactions into the database
-// Function to categorize and store transactions into the database
-const categorizeAndStoreTransactions = (transactions) => {
-    // Clear the transactions table before inserting new data
+// /// Function to categorize and store transactions into the database
+// // Function to categorize and store transactions into the database
+// const categorizeAndStoreTransactions = (transactions) => {
+//     // Clear the transactions table before inserting new data
+//     db.run('DELETE FROM transactions', (err) => {
+//         if (err) {
+//             console.error('Error clearing transactions table:', err);
+//             return;
+//         }
+//         console.log('Transactions table cleared.');
+
+//         // Proceed with inserting new transactions
+//         transactions.forEach((transaction) => {
+//             // Convert Amount to number
+//             const amount = parseFloat(transaction.Amount);
+//             let category = 'Miscellaneous';
+
+//             // Check if 'Description' field exists and categorize accordingly
+//             if (transaction.Description && transaction.Description.toLowerCase().includes('salary')) {
+//                 category = 'Income';
+//             } else if (transaction.Description && transaction.Description.toLowerCase().includes('loan')) {
+//                 category = 'EMI';
+//             } else if (amount < 0) {
+//                 category = 'Expense';
+//             }
+
+//             // Insert into the database
+//             db.run(
+//                 `INSERT INTO transactions (date, amount, description, category) VALUES (?, ?, ?, ?)`,
+//                 [transaction.Date, amount, transaction.Description, category],
+//                 (err) => {
+//                     if (err) {
+//                         console.error('Error inserting transaction into database', err);
+//                     } else {
+//                         console.log('Transaction inserted successfully:', transaction.Date, amount, transaction.Description, category);
+//                     }
+//                 }
+//             );
+//         });
+//     });
+// };
+
+
+//ML model classification
+const categorizeAndStoreTransactions = async (transactions) => {
     db.run('DELETE FROM transactions', (err) => {
         if (err) {
             console.error('Error clearing transactions table:', err);
             return;
         }
         console.log('Transactions table cleared.');
+    });
 
-        // Proceed with inserting new transactions
-        transactions.forEach((transaction) => {
-            // Convert Amount to number
-            const amount = parseFloat(transaction.Amount);
-            let category = 'Miscellaneous';
+    for (let transaction of transactions) {
+        try {
+            let category = "Miscellaneous";  // Default category
 
-            // Check if 'Description' field exists and categorize accordingly
-            if (transaction.Description && transaction.Description.toLowerCase().includes('salary')) {
-                category = 'Income';
-            } else if (transaction.Description && transaction.Description.toLowerCase().includes('loan')) {
-                category = 'EMI';
-            } else if (amount < 0) {
-                category = 'Expense';
+            // Rule-based categorization first
+            const description = transaction.Description.toLowerCase();
+
+            if (description.includes("salary") || description.includes("credit")) {
+                category = "Income";
+            } else if (description.includes("emi") || description.includes("loan") || description.includes("payment")) {
+                category = "EMI";
+            } else if (description.includes("grocery") || description.includes("store")) {
+                category = "Groceries";
+            } else if (description.includes("dining") || description.includes("restaurant") || description.includes("pizza")) {
+                category = "Entertainment";
+            } else if (description.includes("electricity") || description.includes("bill") || description.includes("fee")) {
+                category = "Bills";
+            } else {
+                // Call NLP model only if no rule-based match
+                const response = await axios.post("http://127.0.0.1:5001/classify", {
+                    description: transaction.Description
+                });
+
+                category = response.data.category || "Miscellaneous";
             }
 
-            // Insert into the database
+            // Convert Amount to number
+            const amount = parseFloat(transaction.Amount);
+
+            // Insert transaction into database
             db.run(
                 `INSERT INTO transactions (date, amount, description, category) VALUES (?, ?, ?, ?)`,
                 [transaction.Date, amount, transaction.Description, category],
@@ -119,7 +175,8 @@ const categorizeAndStoreTransactions = (transactions) => {
                     }
                 }
             );
-        });
-    });
+        } catch (error) {
+            console.error("Error calling NLP API:", error);
+        }
+    }
 };
-

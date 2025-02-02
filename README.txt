@@ -1,3 +1,13 @@
+Updated features to add:
+1.) Dynamic file reading not hardcoded.
+2.) tabs for diff things like summary, transaction separate from the upload page.
+3.) Use ML i.e. NLP to do the categorization of the transactions.
+
+
+
+
+
+
 This is a well-structured project that will demonstrate your full-stack development skills. Here’s how I suggest breaking it down:
 
 Project Plan
