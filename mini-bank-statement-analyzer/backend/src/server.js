@@ -6,6 +6,7 @@ const fs = require('fs');  // To read files from the filesystem
 const path = require('path');
 const transactionsRoutes = require("./routes/transactions");
 const summaryRoutes = require("./routes/summary");
+const uploadRoutes = require("./routes/uploadRoutes"); 
 const db = require("./db");  // Database connection
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 app.use("/api/transactions", transactionsRoutes);
 app.use("/api/summary", summaryRoutes);
+app.use('/api/upload', uploadRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

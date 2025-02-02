@@ -1,0 +1,188 @@
+id,cheque_ref,value_date,transaction_date,transaction_remarks,category,withdrawal,deposit
+1,Unknown,Needs Review,Needs Review,"Transaction
+Remarks",ATM Withdrawal,0,0
+2,436251,"01-Sep-2024
+09:00:23","01-Sep-2024
+09:00:23","UPI/REF983457234
+Payment",Food & Dining,0,50000
+3,936412,"01-Sep-2024
+09:05:02","01-Sep-2024
+09:05:02",ATM Withdrawal,ATM Withdrawal,2000,0
+4,351286,"01-Sep-2024
+10:12:45","01-Sep-2024
+10:12:45","NEFT/INR/457832
+Salary",Salary,0,40000
+5,125874,"01-Sep-2024
+11:30:11","01-Sep-2024
+11:30:11","IMPS/REF1029384
+Online Transfer",Transfers,5000,0
+6,412398,"02-Sep-2024
+08:45:37","02-Sep-2024
+08:45:37","UPI Payment:
+Grocery Store",Food,2500,0
+7,534167,"02-Sep-2024
+09:02:10","02-Sep-2024
+09:02:10","NEFT/INR/234899
+Commission",Salary,0,8000
+8,918723,"02-Sep-2024
+10:10:09","02-Sep-2024
+10:10:09","POS Debit:
+Restaurant",Food,1500,0
+9,732615,"02-Sep-2024
+13:22:56","02-Sep-2024
+13:22:56","IMPS/REF857463
+Loan EMI",Loan EMI,10000,0
+10,218364,"03-Sep-2024
+08:01:33","03-Sep-2024
+08:01:33","UPI Refund:
+eCommerce",Shopping,0,3000
+11,884215,"03-Sep-2024
+09:43:21","03-Sep-2024
+09:43:21",ATM Withdrawal,ATM Withdrawal,2000,0
+12,516942,"03-Sep-2024
+11:59:05","03-Sep-2024
+11:59:05","NEFT/INR/672154
+Bonus",Salary,0,10000
+13,734129,"03-Sep-2024
+15:15:42","03-Sep-2024
+15:15:42","UPI Payment: Utility
+Bill",Transfers,2200,0
+14,124578,"04-Sep-2024
+07:50:50","04-Sep-2024
+07:50:50","POS Debit:
+Pharmacy",ATM Withdrawal,800,0
+15,925634,"04-Sep-2024
+08:35:11","04-Sep-2024
+08:35:11","IMPS/REF563728
+Household Help",Transfers,0,3000
+16,366219,"04-Sep-2024
+09:10:02","04-Sep-2024
+09:10:02","UPI Payment:
+Mobile Recharge",Transfers,299,0
+17,771245,"04-Sep-2024
+10:01:31","04-Sep-2024
+10:01:31","NEFT/INR/343210
+Salary",Salary,0,40000
+18,942351,"05-Sep-2024
+09:33:47","05-Sep-2024
+09:33:47",Cheque Deposit,ATM Withdrawal,0,15000
+19,665218,"05-Sep-2024
+10:12:09","05-Sep-2024
+10:12:09",ATM Withdrawal,ATM Withdrawal,5000,0
+20,341527,"05-Sep-2024
+10:58:44","05-Sep-2024
+10:58:44","UPI Payment:
+Electronics",Shopping,8400,0
+21,518934,"06-Sep-2024
+08:04:22","06-Sep-2024
+08:04:22","NEFT/INR/998712
+Cashback",Transfers,0,500
+22,127845,"06-Sep-2024
+09:45:59","06-Sep-2024
+09:45:59","IMPS/REF234516
+Rent Payment",Rent,12000,0
+23,993612,"06-Sep-2024
+14:27:31","06-Sep-2024
+14:27:31","POS Debit:
+Department Store",ATM Withdrawal,2300,0
+24,425879,"07-Sep-2024
+09:10:15","07-Sep-2024
+09:10:15","UPI/REF444556
+Gift",Food & Dining,0,2500
+25,316247,"07-Sep-2024
+10:25:44","07-Sep-2024
+10:25:44",ATM Withdrawal,ATM Withdrawal,2000,0
+26,552114,"07-Sep-2024
+13:04:05","07-Sep-2024
+13:04:05","NEFT/INR/112567
+Commission",Salary,0,4500
+27,819356,"08-Sep-2024
+08:45:00","08-Sep-2024
+08:45:00",Loan EMI Payment,Loan EMI,10000,0
+28,241975,"08-Sep-2024
+09:32:21","08-Sep-2024
+09:32:21","IMPS/REF889654
+Travel Booking",Transfers,4000,0
+29,667532,"08-Sep-2024
+11:59:59","08-Sep-2024
+11:59:59","UPI Payment:
+Insurance",Transfers,3500,0
+30,558921,"09-Sep-2024
+08:10:10","09-Sep-2024
+08:10:10",ATM Withdrawal,ATM Withdrawal,1000,0
+31,Unknown,Needs Review,Needs Review,"Transaction
+Remarks",ATM Withdrawal,0,0
+32,914627,"09-Sep-2024
+09:22:23","09-Sep-2024
+09:22:23",Cheque Deposit,ATM Withdrawal,0,20000
+33,162534,"09-Sep-2024
+12:10:45","09-Sep-2024
+12:10:45","POS Debit: Fast
+Food",ATM Withdrawal,600,0
+34,348217,"10-Sep-2024
+07:35:29","10-Sep-2024
+07:35:29","UPI/REF778899
+Ticket Booking",Food & Dining,1500,0
+35,559831,"10-Sep-2024
+09:01:50","10-Sep-2024
+09:01:50","NEFT/INR/564738
+Bonus",Salary,0,8000
+36,776423,"10-Sep-2024
+11:23:11","10-Sep-2024
+11:23:11",ATM Withdrawal,ATM Withdrawal,500,0
+37,663544,"11-Sep-2024
+08:05:06","11-Sep-2024
+08:05:06","IMPS/REF543218
+Utility Bill",Utilities,1900,0
+38,998121,"11-Sep-2024
+10:50:37","11-Sep-2024
+10:50:37","UPI Payment:
+Donation",Transfers,1000,0
+39,774318,"12-Sep-2024
+07:09:09","12-Sep-2024
+07:09:09",Cheque Deposit,ATM Withdrawal,0,5000
+40,226579,"12-Sep-2024
+09:14:58","12-Sep-2024
+09:14:58","POS Debit: Petrol
+Pump",ATM Withdrawal,1600,0
+41,816234,"12-Sep-2024
+10:33:26","12-Sep-2024
+10:33:26","NEFT/INR/345667
+Commission",Salary,0,3000
+42,334125,"13-Sep-2024
+09:00:00","13-Sep-2024
+09:00:00",Loan EMI Payment,Loan EMI,10000,0
+43,992341,"13-Sep-2024
+10:42:15","13-Sep-2024
+10:42:15","IMPS/REF989787
+Gift Received",Transfers,0,2000
+44,665443,"14-Sep-2024
+08:03:09","14-Sep-2024
+08:03:09","UPI Payment: Gym
+Fee",Transfers,1200,0
+45,513289,"14-Sep-2024
+09:18:45","14-Sep-2024
+09:18:45",ATM Withdrawal,ATM Withdrawal,3000,0
+46,727195,"14-Sep-2024
+11:00:20","14-Sep-2024
+11:00:20","NEFT/INR/129845
+Consultancy Fee",Transfers,0,15000
+47,412569,"15-Sep-2024
+07:44:36","15-Sep-2024
+07:44:36","POS Debit:
+Clothing Store",ATM Withdrawal,2500,0
+48,Unknown,Needs Review,Needs Review,,ATM Withdrawal,0,0
+49,Unknown,Needs Review,Needs Review,,ATM Withdrawal,0,0
+50,Unknown,Needs Review,Needs Review,,ATM Withdrawal,0,0
+51,Unknown,Needs Review,15-Sep-2024 ???,Cheque Dep?,ATM Withdrawal,0,0
+52,341226X,Needs Review,Needs Review,"UPI Payment???
+Utility Bill",Utilities,1700,0
+53,Unknown,16-09-2024 08:05,"16-Sep-2024
+08:05:00","Loan EMI
+Paymnt ???",Loan EMI,10000,0
+54,Unknown,Needs Review,Needs Review,"IMPS/REF234??
+Internet Purchase",Transfers,4200,0
+55,Unknown,Needs Review,"17-Sep-2024
+10:22:51","NEFT/INR/
+987654 ???
+Settlement",Transfers,0,10000

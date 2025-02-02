@@ -178,3 +178,75 @@ button {
 .transaction-item {
   animation: fadeInUp 0.7s ease-out;
 }
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 10px 20px;
+  border: none;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+.tabs button:hover {
+  background-color: #3498db;
+}
+
+.tabs .active {
+  background-color: #3498db;
+  color: white;
+}
+
+.upload-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+.react-tabs {
+  margin-top: 20px;
+}
+
+.react-tabs__tab-list {
+  border-bottom: 1px solid #3498db;
+  padding: 0;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  border: 1px solid transparent;
+  border-bottom: none;
+  bottom: -1px;
+  position: relative;
+  list-style: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #ecf0f1;
+  font-weight: 600;
+}
+
+.react-tabs__tab--selected {
+  background: #1c1f1f;
+  border-color: #3498db;
+  color: #3498db;
+  border-radius: 5px 5px 0 0;
+}
+
+.react-tabs__tab:focus {
+  outline: none;
+}
+
+.react-tabs__tab-panel {
+  padding: 20px;
+  background: #1c1f1f;
+  border-radius: 0 0 5px 5px;
+}

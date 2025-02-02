@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { fetchTransactions, fetchSummary } from "./api/index";
 import FileUpload from './components/FileUpload'; 
 import { Bar, Pie } from 'react-chartjs-2';
@@ -10,7 +10,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 
 function App() {
     const [transactions, setTransactions] = useState([]);
-    const [summary, setSummary] = useState([]);
+    const [summary, setSummary] = useState({ totalCredits: 0, totalDebits: 0, net: 0 });
     const [dataLoaded, setDataLoaded] = useState(false); // New state to track if data exists
 
     const loadData = async () => {
@@ -37,28 +37,30 @@ function App() {
         }, {});
     };
 
-    // Function to calculate the summary (total credits, total debits, net)
-    const calculateSummary = () => {
-        let totalCredits = 0;
-        let totalDebits = 0;
-
-        transactions.forEach((transaction) => {
-            if (transaction.amount > 0) {
-                totalCredits += transaction.amount;
-            } else {
-                totalDebits += Math.abs(transaction.amount);
-            }
-        });
-
-        return {
-            totalCredits,
-            totalDebits,
-            net: totalCredits - totalDebits,
-        };
-    };
+    useEffect(() => {
+        // Calculate summary whenever transactions change
+        if (transactions.length > 0) {
+            let totalCredits = 0;
+            let totalDebits = 0;
+        
+            transactions.forEach((transaction) => {
+                if (transaction.amount > 0) {
+                    totalCredits += transaction.amount;
+                } else {
+                    totalDebits += Math.abs(transaction.amount);
+                }
+            });
+        
+            setSummary({
+                totalCredits,
+                totalDebits,
+                net: totalCredits - totalDebits,
+            });
+        }
+    }, [transactions]); // Only run when transactions change
 
     const categorizedTransactions = categorizeTransactions();
-    const { totalCredits, totalDebits, net } = calculateSummary();
+    const { totalCredits, totalDebits, net } = summary;
 
     // Prepare data for the bar chart
     const chartData = {
