@@ -1,6 +1,8 @@
 .app-container {
   font-family: Arial, sans-serif;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .app-title {
@@ -9,10 +11,37 @@
   margin-bottom: 20px;
 }
 
+/* Tabs styling */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+  background-color: #f4f4f4;
+  transition: background-color 0.3s;
+}
+
+.tabs button.active {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.tabs button:hover:not(.active) {
+  background-color: #ddd;
+}
+
+/* Content container */
 .content-container {
   margin-top: 20px;
 }
 
+/* Transaction Table */
 .transaction-details {
   margin-bottom: 30px;
 }
@@ -32,33 +61,45 @@
 }
 
 .transaction-table th {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   font-weight: bold;
-}
-
-.transaction-table td {
-  background-color: #f9f9f9;
-}
-
-.transaction-table tr:nth-child(even) td {
-  background-color: #f2f2f2; /* Light gray for alternating rows */
-}
-
-.transaction-table tr:hover td {
-  background-color: #e0e0e0; /* Slight darkening on hover */
-}
-
-.transaction-table td {
-  word-wrap: break-word;
-  max-width: 200px; /* Prevent overly wide columns */
-  white-space: normal; /* Allow wrapping for long text */
-}
-
-.transaction-table th {
   font-size: 1rem;
 }
 
 .transaction-table td {
+  background-color: #f9f9f9;
   font-size: 0.9rem;
+  word-wrap: break-word;
+  max-width: 200px;
+  white-space: normal;
+}
+
+.transaction-table tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+.transaction-table tr:hover td {
+  background-color: #e0e0e0;
+}
+
+/* Summary styling */
+.summary-details {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Chart wrapper to control size */
+.chart-wrapper {
+  width: 50%;
+  height: 300px;
+  margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chart-wrapper {
+    width: 100%;
+    height: 300px;
+  }
 }
