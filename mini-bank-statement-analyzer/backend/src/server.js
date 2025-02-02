@@ -37,7 +37,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });  // Initialize multer with the above settings
 
-// Handle file upload and parsing CSV or JSON
 app.post('/api/upload', upload.single('file'), (req, res) => {
     if (!req.file) {
         return res.status(400).send('No file uploaded.');
@@ -48,78 +47,106 @@ app.post('/api/upload', upload.single('file'), (req, res) => {
 
     const transactions = [];
 
-    // Check if the file is a CSV or JSON
     if (filePath.endsWith('.csv')) {
-        // Parse CSV file
         fs.createReadStream(filePath)
-            .pipe(csv())
+            .pipe(csv())  // Automatically detects headers
             .on('data', (row) => {
-                console.log('Parsed row:', row); 
-                transactions.push(row);
+                transactions.push(row);  // Store row as JSON object
             })
             .on('end', () => {
                 console.log('CSV file successfully processed');
-                // Process transactions and store in DB
-                categorizeAndStoreTransactions(transactions);
-                res.send('File uploaded and parsed successfully.');
-                console.log('File uploaded and parsed successfully.');
+                storeTransactions(transactions);
+                res.json({ message: 'File uploaded and parsed successfully.', transactions });
             });
     } else if (filePath.endsWith('.json')) {
-        // Parse JSON file
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 return res.status(500).send('Error reading JSON file.');
             }
             const transactions = JSON.parse(data);
-            console.log('JSON file successfully processed');
-            // Process transactions and store in DB
-            categorizeAndStoreTransactions(transactions);
-            res.send('File uploaded and parsed successfully.');
+            storeTransactions(transactions);
+            res.json({ message: 'File uploaded and parsed successfully.', transactions });
         });
     } else {
         return res.status(400).send('Unsupported file type. Only CSV and JSON are allowed.');
     }
 });
 
-/// Function to categorize and store transactions into the database
-// Function to categorize and store transactions into the database
-const categorizeAndStoreTransactions = (transactions) => {
-    // Clear the transactions table before inserting new data
-    db.run('DELETE FROM transactions', (err) => {
+// // Function to store transactions dynamically
+// const storeTransactions = (transactions) => {
+//     db.run('DELETE FROM transactions', (err) => {
+//         if (err) {
+//             console.error('Error clearing transactions table:', err);
+//             return;
+//         }
+//         console.log('Transactions table cleared.');
+
+//         transactions.forEach((transaction) => {
+//             const transactionData = JSON.stringify(transaction); // Convert row to JSON string
+
+//             db.run(
+//                 `INSERT INTO transactions (data) VALUES (?)`,
+//                 [transactionData],
+//                 (err) => {
+//                     if (err) {
+//                         console.error('Error inserting transaction into database', err);
+//                     } else {
+//                         console.log('Transaction inserted successfully.');
+//                     }
+//                 }
+//             );
+//         });
+//     });
+// };
+
+
+const natural = require("natural"); // NLP library
+const { classifyTransaction } = require("./utils/transactionClassifier"); //transactionclassifier
+
+
+// List of possible names for transaction description fields
+const possibleDescriptionFields = ["description", "transaction_remarks", "note", "details", "memo"];
+
+const storeTransactions = (transactions) => {
+    db.run("DELETE FROM transactions", (err) => {
         if (err) {
-            console.error('Error clearing transactions table:', err);
+            console.error("Error clearing transactions table:", err);
             return;
         }
-        console.log('Transactions table cleared.');
+        console.log("Transactions table cleared.");
 
-        // Proceed with inserting new transactions
+        if (transactions.length === 0) {
+            console.error("No transactions to store.");
+            return;
+        }
+
+        // Dynamically identify the correct description column
+        const transactionKeys = Object.keys(transactions[0]); // Get column names from first row
+        const descriptionColumn = transactionKeys.find((key) =>
+            possibleDescriptionFields.includes(key.toLowerCase())
+        );
+
         transactions.forEach((transaction) => {
-            // Convert Amount to number
-            const amount = parseFloat(transaction.Amount);
-            let category = 'Miscellaneous';
-
-            // Check if 'Description' field exists and categorize accordingly
-            if (transaction.Description && transaction.Description.toLowerCase().includes('salary')) {
-                category = 'Income';
-            } else if (transaction.Description && transaction.Description.toLowerCase().includes('loan')) {
-                category = 'EMI';
-            } else if (amount < 0) {
-                category = 'Expense';
+            // If a category column exists, keep it. Otherwise, predict category.
+            if (!transaction.category && descriptionColumn) {
+                transaction.category = classifyTransaction(transaction[descriptionColumn]);
+            } else if (!transaction.category) {
+                transaction.category = "Uncategorized"; // Default if no description column
             }
 
-            // Insert into the database
+            const transactionData = JSON.stringify(transaction); // Convert row to JSON string
+
             db.run(
-                `INSERT INTO transactions (date, amount, description, category) VALUES (?, ?, ?, ?)`,
-                [transaction.Date, amount, transaction.Description, category],
+                `INSERT INTO transactions (data) VALUES (?)`,
+                [transactionData],
                 (err) => {
                     if (err) {
-                        console.error('Error inserting transaction into database', err);
+                        console.error("Error inserting transaction into database", err);
                     } else {
-                        console.log('Transaction inserted successfully:', transaction.Date, amount, transaction.Description, category);
+                        console.log("Transaction inserted successfully with category:", transaction.category);
                     }
                 }
             );
         });
     });
 };
-
