@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { fetchTransactions } from "./api/index";
-import FileUpload from "./components/FileUpload"; 
+import FileUpload from "./components/FileUpload";
 import { Pie, Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   LineElement,
-  PointElement, // Register the point element for line charts
+  PointElement,
   Title,
   Tooltip,
   Legend,
@@ -20,7 +20,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   LineElement,
-  PointElement, // Ensure PointElement is registered
+  PointElement,
   Title,
   Tooltip,
   Legend,
@@ -32,18 +32,17 @@ function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [activeTab, setActiveTab] = useState("transactions"); // "transactions", "summary", "chart", "lineChart"
 
-  // Fetch transactions from backend and compute Amount if necessary
   const loadData = async () => {
     try {
       const transactionsData = await fetchTransactions();
-      // Process the transactions to compute "Amount" if needed
+      // Process transactions: if deposit and withdrawal fields exist, compute Amount
       const processed = transactionsData.data.map((tx) => {
-        // If deposit and withdrawal exist, compute Amount; otherwise, use existing Amount
         if (tx.deposit !== undefined && tx.withdrawal !== undefined) {
           const deposit = parseFloat(tx.deposit) || 0;
           const withdrawal = parseFloat(tx.withdrawal) || 0;
           return { ...tx, Amount: deposit - withdrawal };
-        } else if (tx.Amount !== undefined) {
+        }
+        if (tx.Amount !== undefined) {
           return { ...tx, Amount: parseFloat(tx.Amount) || 0 };
         }
         return tx;
@@ -55,7 +54,6 @@ function App() {
     }
   };
 
-  // Calculate summary (total income and total expense) based on computed Amount
   const calculateSummary = () => {
     let totalIncome = 0;
     let totalExpense = 0;
@@ -69,19 +67,16 @@ function App() {
     return { totalIncome, totalExpense };
   };
 
-  // Generate Pie Chart data based on category totals.
   const generatePieChartData = () => {
     const categoryTotals = {};
     transactions.forEach((tx) => {
-      // Use "Category" field from the transaction (adjust field name as needed)
+      // Use either 'Category' or 'category' (default to Uncategorized)
       const category = tx.Category || tx.category || "Uncategorized";
       categoryTotals[category] =
         (categoryTotals[category] || 0) + Math.abs(tx.Amount || 0);
     });
-
     const labels = Object.keys(categoryTotals);
     const data = Object.values(categoryTotals);
-
     return {
       labels,
       datasets: [
@@ -102,7 +97,6 @@ function App() {
     };
   };
 
-  // Generate Line Chart data for net balance over time.
   const generateLineChartData = () => {
     // Sort transactions by date (using "transaction_date" or "Date")
     const sortedTx = [...transactions].sort((a, b) => {
@@ -141,7 +135,7 @@ function App() {
     <div className="app-container">
       <h1 className="app-title">Mini Bank Statement Analyzer</h1>
       <FileUpload onUploadSuccess={loadData} />
-      
+
       <div className="tabs">
         <button
           onClick={() => setActiveTab("transactions")}

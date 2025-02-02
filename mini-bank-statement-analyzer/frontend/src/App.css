@@ -1,15 +1,32 @@
+/* Global Styles */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .app-container {
-  font-family: Arial, sans-serif;
-  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 .app-title {
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: center;
   margin-bottom: 20px;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
+
 
 /* Tabs styling */
 .tabs {
@@ -23,17 +40,18 @@
   font-size: 1.2rem;
   cursor: pointer;
   border: none;
-  background-color: #f4f4f4;
+  background-color: #333333;
+  color: #e0e0e0;
   transition: background-color 0.3s;
 }
 
 .tabs button.active {
   background-color: #4caf50;
-  color: #fff;
+  color: #ffffff;
 }
 
 .tabs button:hover:not(.active) {
-  background-color: #ddd;
+  background-color: #555555;
 }
 
 /* Content container */
@@ -50,14 +68,14 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .transaction-table th,
 .transaction-table td {
   padding: 12px 20px;
   text-align: left;
-  border: 1px solid #ddd;
+  border: 1px solid #333333;
 }
 
 .transaction-table th {
@@ -68,7 +86,7 @@
 }
 
 .transaction-table td {
-  background-color: #f9f9f9;
+  background-color: #1e1e1e;
   font-size: 0.9rem;
   word-wrap: break-word;
   max-width: 200px;
@@ -76,17 +94,21 @@
 }
 
 .transaction-table tr:nth-child(even) td {
-  background-color: #f2f2f2;
+  background-color: #2c2c2c;
 }
 
 .transaction-table tr:hover td {
-  background-color: #e0e0e0;
+  background-color: #3a3a3a;
 }
 
 /* Summary styling */
 .summary-details {
   font-size: 1.2rem;
-  color: #333;
+  color: #e0e0e0;
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Chart wrapper to control size */
