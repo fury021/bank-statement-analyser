@@ -1,4 +1,3 @@
-This is a well-structured project that will demonstrate your full-stack development skills. Here’s how I suggest breaking it down:
 
 Project Plan
 Day 1: Backend Development
